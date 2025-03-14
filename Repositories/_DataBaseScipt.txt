@@ -45,3 +45,7 @@ CREATE TABLE LivroFormaCompra (
     FOREIGN KEY (LivroCodL) REFERENCES Livro(CodL) ON DELETE CASCADE,
     FOREIGN KEY (FormaCompraCodFo) REFERENCES FormaCompra(CodFo) ON DELETE CASCADE
 );
+
+INSERT INTO FormaCompra (Descricao) VALUES ('Marketplace');
+INSERT INTO FormaCompra (Descricao) VALUES ('Loja Física');
+INSERT INTO FormaCompra (Descricao) VALUES ('Revenda');
