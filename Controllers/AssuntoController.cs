@@ -47,11 +47,9 @@ namespace Livraria.Controllers
             return BadRequest();
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, [FromBody] Assunto assunto)
+        [HttpPut]
+        public async Task<ActionResult> Update([FromBody] Assunto assunto)
         {
-            assunto.CodAs = id;
-
             var success = await _assuntoService.UpdateAsync(assunto);
 
             if (success)
