@@ -1,0 +1,47 @@
+﻿CREATE TABLE Assunto (
+    CodAs SERIAL PRIMARY KEY,
+    Descricao VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE Autor (
+    CodAu SERIAL PRIMARY KEY,
+    Nome VARCHAR(40) NOT NULL
+);
+
+CREATE TABLE FormaCompra (
+    CodFo SERIAL PRIMARY KEY,
+    Descricao VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE Livro (
+    CodL SERIAL PRIMARY KEY,
+    Titulo VARCHAR(40) NOT NULL,
+    Editora VARCHAR(40) NOT NULL,
+    Edicao INT NOT NULL,
+    AnoPublicacao VARCHAR(4) NOT NULL
+);
+
+CREATE TABLE LivroAssunto (
+    LivroCodL INT NOT NULL,
+    AssuntoCodAs INT NOT NULL,
+    PRIMARY KEY (LivroCodL, AssuntoCodAs),
+    FOREIGN KEY (LivroCodL) REFERENCES Livro(CodL) ON DELETE CASCADE,
+    FOREIGN KEY (AssuntoCodAs) REFERENCES Assunto(CodAs) ON DELETE CASCADE
+);
+
+CREATE TABLE LivroAutor (
+    LivroCodL INT NOT NULL,
+    AutorCodAu INT NOT NULL,
+    PRIMARY KEY (LivroCodL, AutorCodAu),
+    FOREIGN KEY (LivroCodL) REFERENCES Livro(CodL) ON DELETE CASCADE,
+    FOREIGN KEY (AutorCodAu) REFERENCES Autor(CodAu) ON DELETE CASCADE
+);
+
+CREATE TABLE LivroFormaCompra (
+    LivroCodL INT NOT NULL,
+    FormaCompraCodFo INT NOT NULL,
+    Preco DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY (LivroCodL, FormaCompraCodFo),
+    FOREIGN KEY (LivroCodL) REFERENCES Livro(CodL) ON DELETE CASCADE,
+    FOREIGN KEY (FormaCompraCodFo) REFERENCES FormaCompra(CodFo) ON DELETE CASCADE
+);
