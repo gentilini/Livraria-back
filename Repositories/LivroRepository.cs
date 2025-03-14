@@ -18,7 +18,7 @@ namespace Livraria.Repositories
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public async Task<int> CreateAsync(Livro livro)
+        public async Task<int> CreateAsync(LivroModel model)
         {
             using var connection = Connection;
 
@@ -26,7 +26,7 @@ namespace Livraria.Repositories
             VALUES (@titulo, @editora, @edicao, @anoPublicacao) 
             RETURNING Codl;";
 
-            return await connection.QuerySingleAsync<int>(sql, livro);
+            return await connection.QuerySingleAsync<int>(sql, model);
         }
 
         public async Task<int> DeleteAsync(int id)
@@ -98,13 +98,13 @@ namespace Livraria.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<int> UpdateAsync(Livro livro)
+        public async Task<int> UpdateAsync(LivroModel model)
         {
             using var connection = Connection;
 
             var sql = @"UPDATE livro SET titulo = @titulo, editora = @editora, edicao = @edicao, anopublicacao = @anopublicacao WHERE Codl =  @Codl";
 
-            return await connection.ExecuteAsync(sql, livro);
+            return await connection.ExecuteAsync(sql, model);
         }
     }
 }

@@ -39,8 +39,8 @@ namespace Livraria.Controllers
 
             if (id > 0)
             {
-                livroRequestViewModel.Codl = id;
-                return CreatedAtAction(nameof(GetById), new { id = livroRequestViewModel.Codl }, livroRequestViewModel);
+                livroRequestViewModel.Livro.Codl = id;
+                return CreatedAtAction(nameof(GetById), new { id = livroRequestViewModel.Livro.Codl }, livroRequestViewModel);
             }
             return BadRequest();
         }
@@ -48,7 +48,7 @@ namespace Livraria.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, [FromBody] LivroRequestViewModel livroRequestViewModel)
         {
-            livroRequestViewModel.Codl = id;
+            livroRequestViewModel.Livro.Codl = id;
 
             var success = await _livroService.UpdateAsync(livroRequestViewModel);
 

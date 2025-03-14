@@ -1,6 +1,6 @@
 ﻿namespace Livraria.Models
 {
-    public class Livro
+    public class LivroModel
     {
         public int Codl { get; set; }
         public string Titulo { get; set; }

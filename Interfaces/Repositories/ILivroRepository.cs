@@ -7,8 +7,8 @@ namespace Livraria.Interfaces.Repositories
     {
         Task<IEnumerable<LivroResponseViewModel>> GetAllAsync();
         Task<LivroResponseViewModel?> GetByIdAsync(int id);
-        Task<int> CreateAsync(Livro livro);
-        Task<int> UpdateAsync(Livro livro);
+        Task<int> CreateAsync(LivroModel model);
+        Task<int> UpdateAsync(LivroModel model);
         Task<int> DeleteAsync(int id);
     }
 }

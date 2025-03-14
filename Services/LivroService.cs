@@ -23,19 +23,19 @@ namespace Livraria.Services
         public async Task<int> CreateAsync(LivroRequestViewModel livroRequestViewModel)
         {
             // Criar a Livro e retornar o código criado
-            var livro = new Livro
+            var model = new LivroModel
             {
-                Codl = livroRequestViewModel.Codl,
-                Titulo = livroRequestViewModel.Titulo,
-                Editora = livroRequestViewModel.Editora,
-                Edicao = livroRequestViewModel.Edicao,
-                AnoPublicacao = livroRequestViewModel.AnoPublicacao
+                Codl = livroRequestViewModel.Livro.Codl,
+                Titulo = livroRequestViewModel.Livro.Titulo,
+                Editora = livroRequestViewModel.Livro.Editora,
+                Edicao = livroRequestViewModel.Livro.Edicao,
+                AnoPublicacao = livroRequestViewModel.Livro.AnoPublicacao
             };
 
-            var id = await _livroRepository.CreateAsync(livro);
+            var id = await _livroRepository.CreateAsync(model);
 
             // Criar a LivroAssunto
-            foreach (var assunto in livroRequestViewModel.Assuntos)
+            foreach (var assunto in livroRequestViewModel.Livro.Assuntos)
             {
                 var livroAssuto = new LivroAssunto
                 {
@@ -47,7 +47,7 @@ namespace Livraria.Services
             }
 
             // Criar a LivroAutor
-            foreach (var autor in livroRequestViewModel.Autores)
+            foreach (var autor in livroRequestViewModel.Livro.Autores)
             {
                 var livroAutor = new LivroAutor
                 {
@@ -59,7 +59,7 @@ namespace Livraria.Services
             }
 
             // Criar a LivroFormaCompra
-            foreach (var formaCompra in livroRequestViewModel.Precos)
+            foreach (var formaCompra in livroRequestViewModel.Livro.Precos)
             {
                 var livroFormaCompra = new LivroFormaCompra
                 {
@@ -94,12 +94,12 @@ namespace Livraria.Services
         public async Task<bool> UpdateAsync(LivroRequestViewModel livroRequestViewModel)
         {
             // Atualiza o Livro e retornar o código criado
-            var id = await _livroRepository.UpdateAsync(new Livro {
-                 Codl = livroRequestViewModel.Codl, 
-                 Titulo = livroRequestViewModel.Titulo,
-                 Editora = livroRequestViewModel.Editora,
-                 Edicao = livroRequestViewModel.Edicao,
-                 AnoPublicacao = livroRequestViewModel.AnoPublicacao
+            var id = await _livroRepository.UpdateAsync(new LivroModel {
+                 Codl = livroRequestViewModel.Livro.Codl, 
+                 Titulo = livroRequestViewModel.Livro.Titulo,
+                 Editora = livroRequestViewModel.Livro.Editora,
+                 Edicao = livroRequestViewModel.Livro.Edicao,
+                 AnoPublicacao = livroRequestViewModel.Livro.AnoPublicacao
             });
 
             // Apaga a LivroAssunto
@@ -109,17 +109,17 @@ namespace Livraria.Services
             // Apaga a LivroFormaCompra
             await _livroFormaCompraRepository.DeleteAsync(id);
             // Criar a LivroAssunto
-            foreach (var livroAssnto in livroRequestViewModel.Assuntos)
+            foreach (var livroAssnto in livroRequestViewModel.Livro.Assuntos)
             {
                 await _livroAssuntoRepository.CreateAsync(new LivroAssunto { LivroCodL = id, AssuntoCodAs = livroAssnto });
             }
             // Criar a LivroAutor
-            foreach (var livroAutor in livroRequestViewModel.Autores)
+            foreach (var livroAutor in livroRequestViewModel.Livro.Autores)
             {
                 await _livroAutorRepository.CreateAsync(new LivroAutor { LivroCodL = id, AutorCodAu = livroAutor });
             }
             // Criar a LivroFormaCompra
-            foreach (var livroFormaCompra in livroRequestViewModel.Precos)
+            foreach (var livroFormaCompra in livroRequestViewModel.Livro.Precos)
             {
                 await _livroFormaCompraRepository.CreateAsync(new LivroFormaCompra { LivroCodL = id, FormaCompraCodFo = livroFormaCompra.CodFo, Preco = livroFormaCompra.preco });
             }
